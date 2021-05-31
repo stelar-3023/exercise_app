@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 
-class App extends Component {
+class Main extends Component {
   render() {
     return (
       <BrowserRouter>
@@ -14,5 +14,4 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+export default Main;
