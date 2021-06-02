@@ -18,20 +18,16 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false,
+      isAccountOpen: false,
+      isLoginOpen: false
     };
-    this.toggleAccount = this.toggleAccount.bind(this);
-    this.toggleLogin = this.toggleLogin.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  toggleAccount = () => {
+  toggleModal = () => {
     this.setState({
       isAccountOpen: !this.state.isAccountOpen,
-    });
-  };
-  toggleLogin = () => {
-    this.setState({
-      isLoginOpen: !this.state.isLoginOpen,
+      isLoginOpen: !this.state.isLoginOpen
     });
   };
 
@@ -58,7 +54,7 @@ class Header extends Component {
             >
               <NavItem>
                 <NavLink
-                  onClick={this.toggleAccount}
+                  onClick={this.toggleModal}
                   className="nav-link logged-in"
                   to="#"
                 >
@@ -77,7 +73,7 @@ class Header extends Component {
               </NavItem>
               <NavItem>
                 <NavLink
-                  onClick={this.toggleLogin}
+                  onClick={this.toggleModal}
                   className="nav-link logged-out"
                   to="#"
                 >
@@ -94,12 +90,13 @@ class Header extends Component {
         </Navbar>
 
         {/* Login Modal  */}
+
         <Modal
           id="modal-login"
           className="modal"
           isOpen={this.state.isLoginOpen}
           centered={true}
-          toggle={this.toggleLogin}
+          toggle={this.toggleModal}
         >
           <ModalBody className="modal-content">
             <h4>Login</h4>
@@ -125,10 +122,6 @@ class Header extends Component {
                   required
                 />
               </FormGroup>
-              <br />
-              <Button  color="danger" size="md">
-                Login
-              </Button>
             </Form>
           </ModalBody>
         </Modal>
@@ -140,7 +133,7 @@ class Header extends Component {
           className="modal"
           isOpen={this.state.isAccountOpen}
           centered={true}
-          toggle={this.toggleAccount}
+          toggle={this.toggleModal}
         >
           <ModalBody className="modal-content">
             <h4>Account Details</h4>
