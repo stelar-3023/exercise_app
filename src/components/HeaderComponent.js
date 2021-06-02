@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import {
-  Collapse,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
   Jumbotron,
   Modal,
   ModalBody,
   Nav,
   NavItem,
   Navbar,
-  NavbarBrand,
-  NavbarToggler,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
@@ -18,12 +20,18 @@ class Header extends Component {
     this.state = {
       isModalOpen: false,
     };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleAccount = this.toggleAccount.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
 
-  toggleModal = () => {
+  toggleAccount = () => {
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
+      isAccountOpen: !this.state.isAccountOpen,
+    });
+  };
+  toggleLogin = () => {
+    this.setState({
+      isLoginOpen: !this.state.isLoginOpen,
     });
   };
 
@@ -50,7 +58,7 @@ class Header extends Component {
             >
               <NavItem>
                 <NavLink
-                  onClick={this.toggleModal}
+                  onClick={this.toggleAccount}
                   className="nav-link logged-in"
                   to="#"
                 >
@@ -63,12 +71,16 @@ class Header extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link lopgged-in" to="#">
+                <NavLink className="nav-link logged-in" to="#">
                   Logout
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link logged-out" to="#">
+                <NavLink
+                  onClick={this.toggleLogin}
+                  className="nav-link logged-out"
+                  to="#"
+                >
                   Login
                 </NavLink>
               </NavItem>
@@ -80,8 +92,61 @@ class Header extends Component {
             </Nav>
           </div>
         </Navbar>
-        <Modal isOpen={this.state.isModalOpen} centered={true}  toggle={this.toggleModal} >
-        <ModalBody>Test</ModalBody>
+
+        {/* Login Modal  */}
+        <Modal
+          id="modal-login"
+          className="modal"
+          isOpen={this.state.isLoginOpen}
+          centered={true}
+          toggle={this.toggleLogin}
+        >
+          <ModalBody className="modal-content">
+            <h4>Login</h4>
+            <br />
+            <Form id="login-form">
+              <FormGroup className="input-field">
+                <Label for="login-email">Email Address</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="login-email"
+                  placeholder="email"
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="input-field">
+                <Label for="login-password">Your password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="login-password"
+                  placeholder="password"
+                  required
+                />
+              </FormGroup>
+              <br />
+              <Button  color="danger" size="md">
+                Login
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+
+        {/* Account Modal  */}
+
+        <Modal
+          id="modal-account"
+          className="modal"
+          isOpen={this.state.isAccountOpen}
+          centered={true}
+          toggle={this.toggleAccount}
+        >
+          <ModalBody className="modal-content">
+            <h4>Account Details</h4>
+            <br />
+            <div className="account-details"></div>
+          </ModalBody>
         </Modal>
       </React.Fragment>
     );
