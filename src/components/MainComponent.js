@@ -8,7 +8,7 @@ class Main extends Component {
     return (
       <BrowserRouter>
         <Header />
-        <img src={ exercise } alt=""/>
+        <img src={exercise} alt="" />
       </BrowserRouter>
     );
   }

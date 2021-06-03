@@ -12,24 +12,39 @@ import {
   NavItem,
   Navbar,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { BrowserRouter, NavLink } from "react-router-dom";
+import Signup from "./SignupComponent";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAccountOpen: false,
-      isLoginOpen: false
+      isLoginOpen: false,
+      // isSignupOpen: false,
     };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleAccount = this.toggleAccount.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
+    // this.toggleSignup = this.toggleSignup.bind(this);
   }
 
-  toggleModal = () => {
+  toggleAccount = () => {
     this.setState({
       isAccountOpen: !this.state.isAccountOpen,
-      isLoginOpen: !this.state.isLoginOpen
     });
   };
+
+  toggleLogin = () => {
+    this.setState({
+      isLoginOpen: !this.state.isLoginOpen,
+    });
+  };
+
+  // toggleSignup = () => {
+  //   this.setState({
+  //     isSignupOpen: !this.state.isSignupOpen,
+  //   });
+  // };
 
   render() {
     return (
@@ -54,8 +69,9 @@ class Header extends Component {
             >
               <NavItem>
                 <NavLink
-                  onClick={this.toggleModal}
+                  onClick={this.toggleAccount}
                   className="nav-link logged-in"
+                  data-target="modal-account"
                   to="#"
                 >
                   Account
@@ -73,30 +89,88 @@ class Header extends Component {
               </NavItem>
               <NavItem>
                 <NavLink
-                  onClick={this.toggleModal}
+                  onClick={this.toggleLogin}
                   className="nav-link logged-out"
+                  data-target="modal-login"
                   to="#"
                 >
                   Login
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link logged-out" to="#">
+                <NavLink
+                  onClick={this.toggleSignup}
+                  className="nav-link logged-out"
+                  data-target="modal-signup"
+                  to="#"
+                >
                   Sign up
                 </NavLink>
               </NavItem>
             </Nav>
           </div>
         </Navbar>
+        <Signup />
+        {/* SignupModal */}
+        {/* <Modal
+          id="modal-signup"
+          class="modal"
+          isOpen={this.state.isSignupOpen}
+          centered={true}
+          toggle={this.toggleSignup}
+        >
+          <ModalBody className="modal-content">
+            <h4>Sign up</h4>
+            <br />
+            <Form id="signup-form">
+              <FormGroup className="input-field">
+                <Label for="signup-email">Email address</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  autoComplete="on"
+                  id="signup-email"
+                  placeholder="email"
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="input-field">
+                <Label for="signup-password">Choose password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  autoComplete="on"
+                  id="signup-password"
+                  placeholder="password"
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="input-field">
+                <Label for="signup-username">Choose username</Label>
+                <Input
+                  type="username"
+                  name="username"
+                  autoComplete="on"
+                  id="signup-username"
+                  placeholder="username"
+                  required
+                />
+                <br />
+                <Button color="danger" size="sm">
+                  Submit
+                </Button>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+        </Modal> */}
 
         {/* Login Modal  */}
-
         <Modal
           id="modal-login"
           className="modal"
           isOpen={this.state.isLoginOpen}
           centered={true}
-          toggle={this.toggleModal}
+          toggle={this.toggleLogin}
         >
           <ModalBody className="modal-content">
             <h4>Login</h4>
@@ -107,6 +181,7 @@ class Header extends Component {
                 <Input
                   type="email"
                   name="email"
+                  autoComplete="on"
                   id="login-email"
                   placeholder="email"
                   required
@@ -117,23 +192,27 @@ class Header extends Component {
                 <Input
                   type="password"
                   name="password"
+                  autoComplete="on"
                   id="login-password"
                   placeholder="password"
                   required
                 />
+                <br />
+                <Button color="danger" size="sm">
+                  Login
+                </Button>
               </FormGroup>
             </Form>
           </ModalBody>
         </Modal>
 
         {/* Account Modal  */}
-
         <Modal
           id="modal-account"
           className="modal"
           isOpen={this.state.isAccountOpen}
           centered={true}
-          toggle={this.toggleModal}
+          toggle={this.toggleAccount}
         >
           <ModalBody className="modal-content">
             <h4>Account Details</h4>
