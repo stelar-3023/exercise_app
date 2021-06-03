@@ -26,57 +26,60 @@ class Signup extends Component {
 
   render() {
     return (
-      <Modal
-        id="modal-signup"
-        class="modal"
-        isOpen={this.state.isSignupOpen}
-        centered={true}
-        toggle={this.toggleSignup}
-      >
-        <ModalBody className="modal-content">
-          <h4>Sign up</h4>
-          <br />
-          <Form id="signup-form">
-            <FormGroup className="input-field">
-              <Label for="signup-email">Email address</Label>
-              <Input
-                type="email"
-                name="email"
-                autoComplete="on"
-                id="signup-email"
-                placeholder="email"
-                required
-              />
-            </FormGroup>
-            <FormGroup className="input-field">
-              <Label for="signup-password">Choose password</Label>
-              <Input
-                type="password"
-                name="password"
-                autoComplete="on"
-                id="signup-password"
-                placeholder="password"
-                required
-              />
-            </FormGroup>
-            <FormGroup className="input-field">
-              <Label for="signup-username">Choose username</Label>
-              <Input
-                type="username"
-                name="username"
-                autoComplete="on"
-                id="signup-username"
-                placeholder="username"
-                required
-              />
-              <br />
-              <Button color="danger" size="sm">
-                Submit
-              </Button>
-            </FormGroup>
-          </Form>
-        </ModalBody>
-      </Modal>
+      <React.Fragment>
+      {this.props.renderTrigger(this.toggleSignup)}
+        <Modal
+          id="modal-signup"
+          class="modal"
+          isOpen={this.state.isSignupOpen}
+          centered={true}
+          toggle={this.toggleSignup}
+        >
+          <ModalBody className="modal-content">
+            <h4>Sign up</h4>
+            <br />
+            <Form id="signup-form">
+              <FormGroup className="input-field">
+                <Label for="signup-email">Email address</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  autoComplete="on"
+                  id="signup-email"
+                  placeholder="email"
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="input-field">
+                <Label for="signup-password">Choose password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  autoComplete="on"
+                  id="signup-password"
+                  placeholder="password"
+                  required
+                />
+              </FormGroup>
+              <FormGroup className="input-field">
+                <Label for="signup-username">Choose username</Label>
+                <Input
+                  type="username"
+                  name="username"
+                  autoComplete="on"
+                  id="signup-username"
+                  placeholder="username"
+                  required
+                />
+                <br />
+                <Button color="danger" size="sm">
+                  Submit
+                </Button>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+        </Modal>
+      </React.Fragment>
     );
   }
 }

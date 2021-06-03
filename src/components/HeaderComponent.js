@@ -98,19 +98,23 @@ class Header extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  onClick={this.toggleSignup}
-                  className="nav-link logged-out"
-                  data-target="modal-signup"
-                  to="#"
-                >
-                  Sign up
-                </NavLink>
+                <Signup
+                  renderTrigger={(toggleSignup) => (
+                    <NavLink
+                      onClick={toggleSignup}
+                      className="nav-link logged-out"
+                      data-target="modal-signup"
+                      to="#"
+                    >
+                      Sign up
+                    </NavLink>
+                  )}
+                />
               </NavItem>
             </Nav>
           </div>
         </Navbar>
-        <Signup />
+
         {/* SignupModal */}
         {/* <Modal
           id="modal-signup"
