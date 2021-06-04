@@ -7,73 +7,64 @@ import {
   Input,
   Modal,
   ModalBody,
+
 } from "reactstrap";
 
-class Signup extends Component {
+
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignupOpen: false,
+      isLoginOpen: false,
     };
-    this.toggleSignup = this.toggleSignup.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
 
-  toggleSignup = () => {
+  toggleLogin = () => {
     this.setState({
-      isSignupOpen: !this.state.isSignupOpen,
+      isLoginOpen: !this.state.isLoginOpen,
     });
   };
 
   render() {
     return (
       <React.Fragment>
-      {this.props.renderSignup(this.toggleSignup)}
+      {this.props.renderLogin(this.toggleLogin)}
         <Modal
-          id="modal-signup"
-          class="modal"
-          isOpen={this.state.isSignupOpen}
+          id="modal-login"
+          className="modal"
+          isOpen={this.state.isLoginOpen}
           centered={true}
-          toggle={this.toggleSignup}
+          toggle={this.toggleLogin}
         >
           <ModalBody className="modal-content">
-            <h4>Sign up</h4>
+            <h4>Login</h4>
             <br />
-            <Form id="signup-form">
+            <Form id="login-form">
               <FormGroup className="input-field">
-                <Label for="signup-email">Email address</Label>
+                <Label for="login-email">Email Address</Label>
                 <Input
                   type="email"
                   name="email"
                   autoComplete="on"
-                  id="signup-email"
+                  id="login-email"
                   placeholder="email"
                   required
                 />
               </FormGroup>
               <FormGroup className="input-field">
-                <Label for="signup-password">Choose password</Label>
+                <Label for="login-password">Your password</Label>
                 <Input
                   type="password"
                   name="password"
                   autoComplete="on"
-                  id="signup-password"
+                  id="login-password"
                   placeholder="password"
-                  required
-                />
-              </FormGroup>
-              <FormGroup className="input-field">
-                <Label for="signup-username">Choose username</Label>
-                <Input
-                  type="username"
-                  name="username"
-                  autoComplete="on"
-                  id="signup-username"
-                  placeholder="username"
                   required
                 />
                 <br />
                 <Button color="danger" size="sm">
-                  Submit
+                  Login
                 </Button>
               </FormGroup>
             </Form>
@@ -84,4 +75,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default Login;
