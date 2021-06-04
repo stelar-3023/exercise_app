@@ -1,26 +1,11 @@
 import React, { Component } from "react";
-import { Jumbotron, Modal, ModalBody, Nav, NavItem, Navbar } from "reactstrap";
+import { Jumbotron, Nav, NavItem, Navbar } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import Signup from "./SignupComponent";
+import Account from "./AccountDetailsComponent";
 import Login from "./LoginComponent";
+import Signup from "./SignupComponent";
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAccountOpen: false,
-      isLoginOpen: false,
-      // isSignupOpen: false,
-    };
-    this.toggleAccount = this.toggleAccount.bind(this);
-  }
-
-  toggleAccount = () => {
-    this.setState({
-      isAccountOpen: !this.state.isAccountOpen,
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -43,14 +28,18 @@ class Header extends Component {
               }}
             >
               <NavItem>
-                <NavLink
-                  onClick={this.toggleAccount}
-                  className="nav-link logged-in"
-                  data-target="modal-account"
-                  to="#"
-                >
-                  Account
-                </NavLink>
+                <Account
+                  renderAccount={(toggleAccount) => (
+                    <NavLink
+                      onClick={toggleAccount}
+                      className="nav-link logged-in"
+                      data-target="modal-account"
+                      to="#"
+                    >
+                      Account
+                    </NavLink>
+                  )}
+                />
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link logged-in" to="#">
@@ -93,21 +82,6 @@ class Header extends Component {
             </Nav>
           </div>
         </Navbar>
-
-        {/* Account Modal  */}
-        <Modal
-          id="modal-account"
-          className="modal"
-          isOpen={this.state.isAccountOpen}
-          centered={true}
-          toggle={this.toggleAccount}
-        >
-          <ModalBody className="modal-content">
-            <h4>Account Details</h4>
-            <br />
-            <div className="account-details"></div>
-          </ModalBody>
-        </Modal>
       </React.Fragment>
     );
   }
