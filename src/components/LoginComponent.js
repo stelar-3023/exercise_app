@@ -1,78 +1,64 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Modal,
-  ModalBody,
-
-} from "reactstrap";
-
+import { Jumbotron, Nav, NavItem, Navbar } from "reactstrap";
+import { NavLink } from "react-router-dom";
+import LoginModal from "./LoginModal";
+import SignupModal from "./SignupModal";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoginOpen: false,
-    };
-    this.toggleLogin = this.toggleLogin.bind(this);
-  }
-
-  toggleLogin = () => {
-    this.setState({
-      isLoginOpen: !this.state.isLoginOpen,
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
-      {this.props.renderLogin(this.toggleLogin)}
-        <Modal
-          id="modal-login"
-          className="modal"
-          isOpen={this.state.isLoginOpen}
-          centered={true}
-          toggle={this.toggleLogin}
-        >
-          <ModalBody className="modal-content">
-            <h4>Login</h4>
-            <br />
-            <Form id="login-form">
-              <FormGroup className="input-field">
-                <Label for="login-email">Email Address</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  autoComplete="on"
-                  id="login-email"
-                  placeholder="email"
-                  required
+        <Jumbotron fluid>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <h1>Spartan Calisthenics</h1>
+                <h2>A better way to train.</h2>
+              </div>
+            </div>
+          </div>
+        </Jumbotron>
+        <Navbar dark sticky="top" expand="md">
+          <div className="container">
+            <Nav
+              navbar
+              style={{
+                marginRight: "auto",
+              }}
+            >
+              <NavItem>
+                <LoginModal
+                  renderLogin={(toggleLogin) => (
+                    <NavLink
+                      onClick={toggleLogin}
+                      className="nav-link logged-out"
+                      data-target="modal-login"
+                      to="#"
+                    >
+                      Login
+                    </NavLink>
+                  )}
                 />
-              </FormGroup>
-              <FormGroup className="input-field">
-                <Label for="login-password">Your password</Label>
-                <Input
-                  type="password"
-                  name="password"
-                  autoComplete="on"
-                  id="login-password"
-                  placeholder="password"
-                  required
+              </NavItem>
+              <NavItem>
+                <SignupModal
+                  renderSignup={(toggleSignup) => (
+                    <NavLink
+                      onClick={toggleSignup}
+                      className="nav-link logged-out"
+                      data-target="modal-signup"
+                      to="#"
+                    >
+                      Sign up
+                    </NavLink>
+                  )}
                 />
-                <br />
-                <Button color="danger" size="sm">
-                  Login
-                </Button>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-        </Modal>
+              </NavItem>
+            </Nav>
+          </div>
+        </Navbar>
       </React.Fragment>
     );
   }
 }
-
 export default Login;

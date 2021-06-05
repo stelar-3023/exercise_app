@@ -29,20 +29,23 @@ class LoginModal extends Component {
     });
   };
 
-  
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  
   login(event) {
     event.preventDefault();
     fire
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((user) => {})
       .catch((error) => {
-        console.log(error);
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        if (errorCode === "auth/invalid-email") {
+          alert(errorMessage);
+        } else {
+          alert(errorMessage);
+        }
       });
   }
 
@@ -68,7 +71,7 @@ class LoginModal extends Component {
                   onChange={this.handleChange}
                   type="email"
                   name="email"
-                  autoComplete="off"
+                  autoComplete="on"
                   id="login-email"
                   placeholder="email"
                   required

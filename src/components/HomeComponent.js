@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { Jumbotron, Nav, NavItem, Navbar } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import Account from "./AccountDetailsComponent";
-import Login from "./LoginComponent";
-import Signup from "./SignupComponent";
+import fire from "../config/fire";
+import AccountModal from "./AccountDetailsModal";
+import WorkoutModal from "./LogWorkoutModal";
 
-class Header extends Component {
+// import Signup from "./SignupModal";
+
+class Home extends Component {
+  handleLogout = () => {
+    fire.auth().signOut();
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -28,7 +34,7 @@ class Header extends Component {
               }}
             >
               <NavItem>
-                <Account
+                <AccountModal
                   renderAccount={(toggleAccount) => (
                     <NavLink
                       onClick={toggleAccount}
@@ -42,42 +48,27 @@ class Header extends Component {
                 />
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link logged-in" to="#">
-                  Log Workout
-                </NavLink>
+                <WorkoutModal
+                  renderWorkout={(toggleWorkout) => (
+                    <NavLink
+                      onClick={toggleWorkout}
+                      className="nav-link logged-in"
+                      to="#"
+                      data-target="modal-exercise"
+                    >
+                      Log Workout
+                    </NavLink>
+                  )}
+                />
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link logged-in" to="#">
+                <NavLink
+                  onClick={this.handleLogout}
+                  className="nav-link logged-in"
+                  to="#"
+                >
                   Logout
                 </NavLink>
-              </NavItem>
-              <NavItem>
-                <Login
-                  renderLogin={(toggleLogin) => (
-                    <NavLink
-                      onClick={toggleLogin}
-                      className="nav-link logged-out"
-                      data-target="modal-login"
-                      to="#"
-                    >
-                      Login
-                    </NavLink>
-                  )}
-                />
-              </NavItem>
-              <NavItem>
-                <Signup
-                  renderSignup={(toggleSignup) => (
-                    <NavLink
-                      onClick={toggleSignup}
-                      className="nav-link logged-out"
-                      data-target="modal-signup"
-                      to="#"
-                    >
-                      Sign up
-                    </NavLink>
-                  )}
-                />
               </NavItem>
             </Nav>
           </div>
@@ -86,4 +77,4 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+export default Home;

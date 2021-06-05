@@ -4,7 +4,7 @@ import {
   ModalBody,
 } from "reactstrap";
 
-class Account extends Component {
+class AccountModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,4 +40,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default AccountModal;
