@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Modal, ModalBody } from "reactstrap";
+import { Button, Input, Modal, ModalBody, Table } from "reactstrap";
 import firebase from "../config/fire";
 
 class LogModal extends Component {
@@ -8,8 +8,13 @@ class LogModal extends Component {
     this.state = {
       workouts: [],
       isLogOpen: false,
+      isUpdating: false,
+      draftWorkout: null,
     };
-    this.exerciseRef = firebase.firestore().collection("workouts").doc("Hw1CF8bbizlDSH7VTcvF");
+    this.exerciseRef = firebase
+      .firestore()
+      .collection("workouts")
+      .doc("XCz4SLHEKva8dlgmyAMQ");
     // bind methods
     this.toggleLog = this.toggleLog.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,27 +30,24 @@ class LogModal extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
- 
-
   getWorkouts() {
     this.exerciseRef.onSnapshot((snapshot) => {
       console.log(snapshot);
-      let workouts = snapshot.data().exercises
+      let workouts = snapshot.data().exercises;
       console.log(workouts);
       this.setState({ workouts });
     });
   }
 
-  // modifyWorkout(modifiedWorkout) {
-  //   this.exerciseRef
-  //   .doc(.id)
-  // }
+  modifyWorkout(workout) {}
 
   deleteWorkout(workout) {
     this.exerciseRef
-      .set({exercises: this.state.workouts.filter((_workout) => {
-        return _workout.id !== workout.id
-      })})
+      .set({
+        exercises: this.state.workouts.filter((_workout) => {
+          return _workout.id !== workout.id;
+        }),
+      })
       .then(this.getWorkouts)
       .catch((error) => {
         console.log(error);
@@ -69,29 +71,98 @@ class LogModal extends Component {
         >
           <ModalBody>
             <h2>Workout</h2>
-            <Form>
-              <FormGroup>
-                {this.state.workouts.map((workout) => (
-                  <div key={workout.id}>
-                    <p>{workout.exercise}</p>
-                    <p>{workout.reps}</p>
-                    <br />
-                    <Button typeo="submit" color="danger" size="sm">
-                      Modify
-                    </Button>
-                    <span>&nbsp;&nbsp;</span>
+            <Table>
+            <thead>
+              <tr>
+                <th>Exercises</th>
+                <th>Reps</th>
+              </tr>
+            </thead>
+              {this.state.workouts.map((workout, index) => (
+                <tr key={workout.id}>
+                  <td>{workout.exercise}</td>
+                  <td>{workout.reps}</td>
+                  {this.state.isUpdating &&
+                    this.state.draftWorkout &&
+                    this.state.draftWorkout.id === workout.id && (
+                      <div>
+                        <Input
+                          placeholder={workout.exercise}
+                          onChange={(event) => {
+                            const value = event.target.value;
+                            const draftWorkout = {
+                              ...this.state.draftWorkout,
+                              exercise: value,
+                            };
+                            this.setState({ draftWorkout });
+                          }}
+                        ></Input>
+                        <br />
+                        <Input
+                          placeholder={workout.reps}
+                          onChange={(event) => {
+                            const value = event.target.value;
+                            const draftWorkout = {
+                              ...this.state.draftWorkout,
+                              reps: value,
+                            };
+                            this.setState({ draftWorkout });
+                          }}
+                        ></Input>
+                        <br />
+                      </div>
+                    )}
+                  {this.state.isUpdating ? (
                     <Button
-                      onClick={() => this.deleteWorkout(workout)}
+                      onClick={() => {
+                        const workouts = [...this.state.workouts]; // create a new array
+                        workouts[index] = {
+                          ...this.state.draftWorkout,
+                        };
+                        this.setState({
+                          isUpdating: false,
+                          draftWorkout: null,
+                          workouts,
+                        });
+                      }}
                       typeo="submit"
                       color="danger"
                       size="sm"
+                      className="mb-1"
+                      
                     >
-                      Delete
+                      Save
                     </Button>
-                  </div>
-                ))}
-              </FormGroup>
-            </Form>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        this.setState({
+                          isUpdating: true,
+                          draftWorkout: { ...workout },
+                        });
+                      }}
+                      typeo="submit"
+                      color="danger"
+                      size="sm"
+                      className="mb-1"
+                    >
+                      Modify
+                    </Button>
+                  )}
+
+                  <span>&nbsp;&nbsp;</span>
+                  <Button
+                    onClick={() => this.deleteWorkout(workout)}
+                    typeo="submit"
+                    color="danger"
+                    size="sm"
+                    className="mb-1"
+                  >
+                    Delete
+                  </Button>
+                </tr>
+              ))}
+            </Table>
           </ModalBody>
         </Modal>
       </React.Fragment>
