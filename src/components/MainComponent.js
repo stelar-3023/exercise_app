@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import fire from "../config/fire";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./LoginComponent";
 import Home from "./HomeComponent";
 import exercise from "../img/exercise.jpg";
@@ -29,10 +29,10 @@ class Main extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         {this.state.user ? <Home /> : <Login />}
         <img src={exercise} alt="" />
-      </BrowserRouter>
+      </Router>
     );
   }
 }
