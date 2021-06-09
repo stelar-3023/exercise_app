@@ -8,14 +8,14 @@ import {
   Modal,
   ModalBody,
 } from "reactstrap";
-import fire from "../config/fire";
+import firebase from "../config/fire";
 
 class WorkoutModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       exercise: "",
-      reps: "",
+      reps: [],
       isLogWorkoutOpen: false,
     };
     // bind methods
@@ -31,6 +31,17 @@ class WorkoutModal extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  exerciseRef = firebase.firestore().collection("workouts");
+
+  addExercise(newExercise) {
+    this.exerciseRef
+      .doc()
+      .set(newExercise)
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -55,7 +66,7 @@ class WorkoutModal extends Component {
                   onChange={this.handleChange}
                   type="text"
                   name="exercise"
-                  autocomplete="off"
+                  autoComplete="off"
                   id="exercise"
                   placeholder="exercise"
                   required
@@ -68,18 +79,14 @@ class WorkoutModal extends Component {
                   onChange={this.handleChange}
                   type="number"
                   name="reps"
-                  autocomplete="off"
+                  autoComplete="off"
                   id="reps"
                   placeholder="reps"
                   required
                 />
                 <br />
-                <Button
-                  type="submit"
-                  color="danger"
-                  size="sm"
-                >
-                  Submit
+                <Button type="submit" color="danger" size="sm">
+                  Add Exercise
                 </Button>
               </FormGroup>
             </Form>
