@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import fire from "../config/fire";
 import AccountModal from "./AccountDetailsModal";
 import WorkoutModal from "./LogWorkoutModal";
-
+import LogModal from "./LogModal";
 // import Signup from "./SignupModal";
 
 class Home extends Component {
@@ -57,6 +57,20 @@ class Home extends Component {
                       data-target="modal-exercise"
                     >
                       Log Workout
+                    </NavLink>
+                  )}
+                />
+              </NavItem>
+              <NavItem>
+                <LogModal
+                  renderLog={(toggleLog) => (
+                    <NavLink
+                      onClick={toggleLog}
+                      className="nav-link logged-in"
+                      to="#"
+                      data-target="modal-log"
+                    >
+                      Log
                     </NavLink>
                   )}
                 />
