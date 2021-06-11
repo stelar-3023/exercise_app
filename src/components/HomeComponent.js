@@ -5,6 +5,7 @@ import fire from "../config/fire";
 import AccountModal from "./AccountDetailsModal";
 import WorkoutModal from "./LogWorkoutModal";
 import LogModal from "./LogModal";
+
 // import Signup from "./SignupModal";
 
 class Home extends Component {
@@ -63,6 +64,7 @@ class Home extends Component {
               </NavItem>
               <NavItem>
                 <LogModal
+                  parentCallback={this.handleCallback}
                   renderLog={(toggleLog) => (
                     <NavLink
                       onClick={toggleLog}
