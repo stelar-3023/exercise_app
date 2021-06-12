@@ -69,6 +69,12 @@ class LogModal extends Component {
     });
   }
 
+  cancelUpdate = () => {
+    this.setState({
+      isLogOpen: !this.state.isLogOpen,
+    })
+  }
+
   deleteWorkout(workout) {
     this.exerciseRef
       .set({
@@ -133,6 +139,16 @@ class LogModal extends Component {
                 className="mb-1 log-button"
               >
                 Modify
+              </Button>
+            </td>
+            <td>
+              <Button
+                onClick={(event) => this.cancelUpdate(workout)}
+                typeo="submit"
+                size="sm"
+                className="mb-1 log-button"
+              >
+                Cancel
               </Button>
             </td>
 
