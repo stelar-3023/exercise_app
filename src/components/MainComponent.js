@@ -30,10 +30,11 @@ class Main extends Component {
   render() {
     return (
       <Router>
-        {this.state.user ? <Home /> : <Login />}
+        {this.state.user ? <Home user={this.state.user} /> : <Login />}
         <img src={exercise} alt="" />
       </Router>
     );
   }
 }
+
 export default Main;

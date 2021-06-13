@@ -18,6 +18,10 @@ class WorkoutModal extends Component {
       reps: [],
       isLogWorkoutOpen: false,
     };
+    this.exerciseRef = firebase
+      .firestore()
+      .collection("workouts")
+      .doc("XCz4SLHEKva8dlgmyAMQ");
     // bind methods
     this.toggleWorkout = this.toggleWorkout.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -33,15 +37,17 @@ class WorkoutModal extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  exerciseRef = firebase.firestore().collection("workouts");
-
-  addExercise(newExercise) {
-    this.exerciseRef
-      .doc()
-      .set(newExercise)
-      .catch((error) => {
-        console.log(error);
-      });
+  addExercise() {
+    this.exerciseRef.doc.set({
+      exercise: this.exercise,
+      reps: this.reps,
+    })
+    .then(() => {
+      console.log("Document was successfully added")
+    })
+    .catch((error) => {
+      console.error("Error writing document:", error)
+    })
   }
 
   render() {
@@ -85,7 +91,12 @@ class WorkoutModal extends Component {
                   required
                 />
                 <br />
-                <Button type="submit" color="danger" size="sm">
+                <Button
+                  onClick={() => this.addExercise(this.exercise, this.reps)}
+                  type="submit"
+                  color="danger"
+                  size="sm"
+                >
                   Add Exercise
                 </Button>
               </FormGroup>

@@ -32,3 +32,12 @@ h2 {
 img {
   opacity: 0.4;
 }
+
+.log-button {
+  background-color: red;
+  color: white;
+}
+
+.save-button {
+  margin-right: 10px;
+}

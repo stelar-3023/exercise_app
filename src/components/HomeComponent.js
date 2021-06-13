@@ -36,6 +36,7 @@ class Home extends Component {
             >
               <NavItem>
                 <AccountModal
+                  user={this.props.user}
                   renderAccount={(toggleAccount) => (
                     <NavLink
                       onClick={toggleAccount}
@@ -64,7 +65,6 @@ class Home extends Component {
               </NavItem>
               <NavItem>
                 <LogModal
-                  parentCallback={this.handleCallback}
                   renderLog={(toggleLog) => (
                     <NavLink
                       onClick={toggleLog}
@@ -93,4 +93,5 @@ class Home extends Component {
     );
   }
 }
+
 export default Home;

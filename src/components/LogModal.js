@@ -45,11 +45,12 @@ class LogModal extends Component {
       ...this.state.draftWorkout,
       [event.target.name]: value,
     };
-    console.log(event.target.name)
+    console.log(event.target.name);
     this.setState({ draftWorkout });
-  }
+  };
 
   saveWorkout = (index) => {
+    console.log(this.exerciseRef);
     const workouts = [...this.state.workouts]; // create a new array
     workouts[index] = {
       ...this.state.draftWorkout,
@@ -59,7 +60,7 @@ class LogModal extends Component {
       draftWorkout: null,
       workouts,
     });
-  }
+  };
 
   modifyWorkout = (workout, index) => {
     this.setState({
@@ -67,13 +68,14 @@ class LogModal extends Component {
       draftWorkout: { ...workout },
       draftIndex: index,
     });
-  }
+  };
 
   cancelUpdate = () => {
     this.setState({
-      isLogOpen: !this.state.isLogOpen,
-    })
-  }
+      isLogOpen: false,
+      isUpdating: false,
+    });
+  };
 
   deleteWorkout(workout) {
     this.exerciseRef
@@ -93,80 +95,96 @@ class LogModal extends Component {
   }
 
   renderInputs = () => {
-    const draftWorkout = this.state.draftWorkout
-    return <div><Input
-      placeholder={draftWorkout.exercise}
-      onChange={this.updateProperty}
-      name="exercise"
-    ></Input>
-      <br />
-      <Input
-        placeholder={draftWorkout.reps}
-        onChange={this.updateProperty}
-        name="reps"
-      ></Input>
-      <br />
-      <Button
-        onClick={() => {
-          this.saveWorkout(this.state.draftIndex)
-        }}
-        type="submit"
-        size="sm"
-        className="mb-1 log-button  save-button"
-      >
-        Save
-      </Button></div>
-  }
+    const draftWorkout = this.state.draftWorkout;
+    return (
+      <div>
+        <Input
+          placeholder={draftWorkout.exercise}
+          onChange={this.updateProperty}
+          name="exercise"
+        ></Input>
+        <br />
+        <Input
+          placeholder={draftWorkout.reps}
+          onChange={this.updateProperty}
+          name="reps"
+        ></Input>
+        <br />
+        <Button
+          onClick={() => {
+            this.saveWorkout(this.state.draftIndex);
+          }}
+          type="submit"
+          size="sm"
+          className="mb-1 log-button  save-button"
+        >
+          Save
+        </Button>
+        <Button
+          onClick={() => {
+            this.cancelUpdate(this.state.draftIndex);
+          }}
+          type="submit"
+          size="sm"
+          className="mb-1 log-button  save-button"
+        >
+          Cancel
+        </Button>
+      </div>
+    );
+  };
 
   renderTable = () => {
-    return <Table>
-      <thead>
-        <tr>
-          <th>Exercises</th>
-          <th>Reps</th>
-        </tr>
-      </thead>
-      <tbody>
-        {this.state.workouts.map((workout, index) => (
-          <tr key={workout.id}>
-            <td>{workout.exercise}</td>
-            <td>{workout.reps}</td>
-            <td>
-              <Button
-                onClick={(event) => this.modifyWorkout(workout, index)}
-                typeo="submit"
-                size="sm"
-                className="mb-1 log-button"
-              >
-                Modify
-              </Button>
-            </td>
-            <td>
-              <Button
-                onClick={(event) => this.cancelUpdate(workout)}
-                typeo="submit"
-                size="sm"
-                className="mb-1 log-button"
-              >
-                Cancel
-              </Button>
-            </td>
-
-            <td>
-              <Button
-                onClick={() => this.deleteWorkout(workout)}
-                typeo="submit"
-                size="sm"
-                className="mb-1 log-button"
-              >
-                Delete
-              </Button>
-            </td>
+    return (
+      <Table>
+        <thead>
+          <tr>
+            <th>Exercises</th>
+            <th>Reps</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
-  }
+        </thead>
+        <tbody>
+          {this.state.workouts.map((workout, index) => (
+            <tr key={workout.id}>
+              <td>{workout.exercise}</td>
+              <td>{workout.reps}</td>
+              <td>
+                <Button
+                  onClick={(event) => this.modifyWorkout(workout, index)}
+                  typeo="submit"
+                  size="sm"
+                  className="mb-1 log-button"
+                >
+                  Modify
+                </Button>
+              </td>
+              <td>
+                <Button
+                  onClick={(event) => this.cancelUpdate(workout)}
+                  typeo="submit"
+                  size="sm"
+                  className="mb-1 log-button"
+                >
+                  Cancel
+                </Button>
+              </td>
+
+              <td>
+                <Button
+                  onClick={() => this.deleteWorkout(workout)}
+                  typeo="submit"
+                  size="sm"
+                  className="mb-1 log-button"
+                >
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  };
 
   render() {
     return (
