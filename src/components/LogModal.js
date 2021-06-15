@@ -160,7 +160,7 @@ class LogModal extends Component {
               </td>
               <td>
                 <Button
-                  onClick={(event) => this.cancelUpdate(workout)}
+                  onClick={() => this.cancelUpdate(workout)}
                   typeo="submit"
                   size="sm"
                   className="mb-1 log-button"

@@ -8,14 +8,16 @@ import {
   Modal,
   ModalBody,
 } from "reactstrap";
+import { v4 as uuid4 } from "uuid";
 import firebase from "../config/fire";
 
 class WorkoutModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      workouts: [],
       exercise: "",
-      reps: [],
+      reps: 0,
       isLogWorkoutOpen: false,
     };
     this.exerciseRef = firebase
@@ -23,8 +25,8 @@ class WorkoutModal extends Component {
       .collection("workouts")
       .doc("XCz4SLHEKva8dlgmyAMQ");
     // bind methods
-    this.toggleWorkout = this.toggleWorkout.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addExercise = this.addExercise.bind(this);
   }
 
   toggleWorkout = () => {
@@ -37,17 +39,35 @@ class WorkoutModal extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  addExercise() {
-    this.exerciseRef.doc.set({
-      exercise: this.exercise,
-      reps: this.reps,
-    })
-    .then(() => {
-      console.log("Document was successfully added")
-    })
-    .catch((error) => {
-      console.error("Error writing document:", error)
-    })
+  getWorkouts() {
+    this.exerciseRef.onSnapshot((snapshot) => {
+      console.log(snapshot);
+      let workouts = snapshot.data().exercises;
+      console.log(workouts);
+      this.setState({ workouts });
+    });
+  }
+
+  addExercise(event) {
+    event.preventDefault();
+    this.exerciseRef.set(
+      {
+        exercises: [
+          ...this.state.workouts,
+          {
+            exercise: this.state.exercise,
+            reps: this.state.reps,
+            id: uuid4(),
+          },
+        ],
+      },
+      { merge: true }
+    );
+    this.toggleWorkout();
+  }
+
+  componentDidMount() {
+    this.getWorkouts();
   }
 
   render() {
@@ -92,7 +112,7 @@ class WorkoutModal extends Component {
                 />
                 <br />
                 <Button
-                  onClick={() => this.addExercise(this.exercise, this.reps)}
+                  onClick={this.addExercise}
                   type="submit"
                   color="danger"
                   size="sm"
