@@ -14,7 +14,7 @@ class LogModal extends Component {
     this.exerciseRef = firebase
       .firestore()
       .collection("workouts")
-      .doc("XCz4SLHEKva8dlgmyAMQ");
+      .doc(props.user.uid);
     // bind methods
     this.toggleLog = this.toggleLog.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -55,6 +55,9 @@ class LogModal extends Component {
     workouts[index] = {
       ...this.state.draftWorkout,
     };
+    this.exerciseRef.set({
+      exercises: workouts,
+    });
     this.setState({
       isUpdating: false,
       draftWorkout: null,

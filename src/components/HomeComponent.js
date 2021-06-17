@@ -51,6 +51,7 @@ class Home extends Component {
               </NavItem>
               <NavItem>
                 <WorkoutModal
+                  user={this.props.user}
                   renderWorkout={(toggleWorkout) => (
                     <NavLink
                       onClick={toggleWorkout}
@@ -65,6 +66,7 @@ class Home extends Component {
               </NavItem>
               <NavItem>
                 <LogModal
+                  user={this.props.user}
                   renderLog={(toggleLog) => (
                     <NavLink
                       onClick={toggleLog}

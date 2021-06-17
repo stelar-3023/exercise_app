@@ -23,7 +23,7 @@ class WorkoutModal extends Component {
     this.exerciseRef = firebase
       .firestore()
       .collection("workouts")
-      .doc("XCz4SLHEKva8dlgmyAMQ");
+      .doc(props.user.uid);
     // bind methods
     this.handleChange = this.handleChange.bind(this);
     this.addExercise = this.addExercise.bind(this);
@@ -64,6 +64,10 @@ class WorkoutModal extends Component {
       { merge: true }
     );
     this.toggleWorkout();
+    this.setState({
+      exercise: "",
+      reps: 0,
+    });
   }
 
   componentDidMount() {
