@@ -41,3 +41,8 @@ img {
 .save-button {
   margin-right: 10px;
 }
+
+.cancel-log {
+  display: flex;
+  margin-left: auto;
+}

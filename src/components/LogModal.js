@@ -163,17 +163,6 @@ class LogModal extends Component {
               </td>
               <td>
                 <Button
-                  onClick={() => this.cancelUpdate(workout)}
-                  typeo="submit"
-                  size="sm"
-                  className="mb-1 log-button"
-                >
-                  Cancel
-                </Button>
-              </td>
-
-              <td>
-                <Button
                   onClick={() => this.deleteWorkout(workout)}
                   typeo="submit"
                   size="sm"
@@ -201,6 +190,11 @@ class LogModal extends Component {
           toggle={this.toggleLog}
         >
           <ModalBody>
+            <Button
+              className="cancel-log"
+              onClick={() => this.cancelUpdate()}
+              close
+            />
             <h2>Workout</h2>
             {this.state.isUpdating ? this.renderInputs() : this.renderTable()}
           </ModalBody>
