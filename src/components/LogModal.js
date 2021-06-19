@@ -193,8 +193,9 @@ class LogModal extends Component {
             <Button
               className="cancel-log"
               onClick={() => this.cancelUpdate()}
-              close
-            />
+              size="sm"
+              color="danger"
+            >&times;</Button>
             <h2>Workout</h2>
             {this.state.isUpdating ? this.renderInputs() : this.renderTable()}
           </ModalBody>
