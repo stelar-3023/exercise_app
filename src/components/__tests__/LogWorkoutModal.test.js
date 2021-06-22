@@ -6,9 +6,9 @@ import WorkoutModal from "../LogWorkoutModal";
 describe("toggleWorkout", () => {
   test("toggle the workout modal open", () => {
     render(<WorkoutModal user={{uid: "ZDGIjt1nP1bkbU8mSqJZ3QAO8103" }} renderWorkout={(toggleWorkout) => (
-       <a className="toggle-test" onClick={toggleWorkout}>Toggle</a>
+       <button className="toggle-test" onClick={toggleWorkout}>toggleWorkout</button>
     )}/>);
-    // fireEvent.click(screen.getByText("Toggle"))
+    fireEvent.click(screen.getByText("toggleWorkout"))
     expect(screen.getByText("Add Exercises")).toBeTruthy()
   })
 })
