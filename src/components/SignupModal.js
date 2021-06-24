@@ -11,7 +11,7 @@ import {
 import fire from "../config/fire";
 import { db } from "../config/fire";
 
-class Signup extends Component {
+class SignupModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +45,7 @@ class Signup extends Component {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((cred) => {
         return db.collection("workouts").doc(cred.user.uid).set({
-          exercises: []
+          exercises: [],
         });
       })
       .catch((error) => {
@@ -130,4 +130,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default SignupModal;
