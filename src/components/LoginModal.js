@@ -71,6 +71,7 @@ class LoginModal extends Component {
                   onChange={this.handleChange}
                   type="email"
                   name="email"
+                  data-testid="email-input"
                   autoComplete="on"
                   id="login-email"
                   placeholder="email"

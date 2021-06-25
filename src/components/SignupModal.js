@@ -81,6 +81,7 @@ class SignupModal extends Component {
                   onChange={this.handleChange}
                   type="email"
                   name="email"
+                  data-testid="email-input"
                   autoComplete="on"
                   id="signup-email"
                   placeholder="email"
