@@ -45,6 +45,6 @@ describe("toggleSignup", () => {
     fireEvent.click(screen.getByText("toggleSignup"));
     const inputElement = screen.getByTestId("email-input");
     userEvent.type(inputElement, "test@email.com");
-    expect(screen.getByTestId("email-input")).toHaveValue("test@email.com")
+    expect(screen.getByTestId("email-input")).toHaveValue("test@email.com");
   });
 });
