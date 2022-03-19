@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Modal, ModalBody } from "reactstrap";
+import React, { Component } from 'react';
+import { Modal, ModalBody } from 'reactstrap';
 
 class AccountModal extends Component {
   constructor(props) {
@@ -21,16 +21,16 @@ class AccountModal extends Component {
       <React.Fragment>
         {this.props.renderAccount(this.toggleAccount)}
         <Modal
-          id="modal-account"
-          className="modal"
+          id='modal-account'
+          className='modal'
           isOpen={this.state.isAccountOpen}
           centered={true}
           toggle={this.toggleAccount}
         >
-          <ModalBody className="modal-content">
+          <ModalBody className='modal-content'>
             <h2>Account Details</h2>
             <br />
-            <div className="account-details">
+            <div className='account-details'>
               <h4>{this.props.user.email}</h4>
             </div>
           </ModalBody>

@@ -154,7 +154,7 @@ class LogModal extends Component {
               <td>
                 <Button
                   onClick={(event) => this.modifyWorkout(workout, index)}
-                  typeo="submit"
+                  type="submit"
                   size="sm"
                   className="mb-1 log-button"
                 >
@@ -164,7 +164,7 @@ class LogModal extends Component {
               <td>
                 <Button
                   onClick={() => this.deleteWorkout(workout)}
-                  typeo="submit"
+                  type="submit"
                   size="sm"
                   className="mb-1 log-button"
                 >
